@@ -1,3 +1,5 @@
+from random import randint
+
 from sqlalchemy.orm import Session
 from fastapi.exceptions import HTTPException
 from fastapi import status
@@ -14,11 +16,15 @@ def create_user(db: Session, user: UserCreate) -> UserResponse:
             detail="This user already exists"
         )
 
+
+    verification_code = randint(1000,9999)
+
     new_user = User(
         email=user.email,
         hash_password=get_hash_password(user.password), 
         name=user.name,
-        phone=user.phone
+        phone=user.phone,
+        verification_code=verification_code,
     )
     db.add(new_user)
     db.commit()

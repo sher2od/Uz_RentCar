@@ -26,7 +26,9 @@ class UserResponse(BaseModel):
         from_attributes = True
     
     
-# class UserLogin(BaseModel):
-#     email: EmailStr
-#     password: str
 
+
+
+class VerificationCode(BaseModel):
+    email: Annotated[str, EmailStr]
+    code: Annotated[int, Field(ge=0, le=9999, example=0)]  
