@@ -5,14 +5,12 @@ from pydantic import BaseModel
 from enum import Enum
 
 
-# ======================
-# ENUMLAR
-# ======================
+
 
 class EngineType(str, Enum):
     MECHANIC = "MECHANIC"
     AUTOMATIC = "AUTOMATIC"
-    AUTOMAT = "AUTOMAT"  # <-- bazadagi qiymatlar bilan bir xil
+    AUTOMAT = "AUTOMAT" 
 
 
 class FuelType(str, Enum):
@@ -30,9 +28,6 @@ class ShapeType(str, Enum):
     pickup = "pickup"
 
 
-# ======================
-# IMAGE va EQUIPMENT SCHEMALAR
-# ======================
 
 class ImageBase(BaseModel):
     url: str
@@ -42,7 +37,7 @@ class ImageResponse(ImageBase):
     id: int
 
     class Config:
-        from_attributes = True  # ✅ orm_mode o‘rniga shu ishlatiladi
+        from_attributes = True  
 
 
 class EquipmentBase(BaseModel):
@@ -56,9 +51,7 @@ class EquipmentResponse(EquipmentBase):
         from_attributes = True
 
 
-# ======================
-# CAR SCHEMALAR
-# ======================
+
 
 class CarBase(BaseModel):
     model: str
@@ -73,13 +66,13 @@ class CarBase(BaseModel):
     is_available: bool = True
 
 
-# 🟢 Yangi mashina yaratish
+
 class CarCreate(CarBase):
     images: Optional[List[ImageBase]] = []
     equipments: Optional[List[EquipmentBase]] = []
 
 
-# 🟡 Mavjud mashinani yangilash
+
 class CarUpdate(BaseModel):
     model: Optional[str] = None
     brand: Optional[str] = None
@@ -93,7 +86,7 @@ class CarUpdate(BaseModel):
     is_available: Optional[bool] = None
 
 
-# 🔵 Bitta mashinani o‘qish uchun
+
 class CarResponse(BaseModel):
     id: int
     model: str
@@ -113,7 +106,6 @@ class CarResponse(BaseModel):
         from_attributes = True
 
 
-# 🔴 Bir nechta mashinalarni o‘qish uchun
 class CarsResponse(BaseModel):
     cars: List[CarResponse]
 

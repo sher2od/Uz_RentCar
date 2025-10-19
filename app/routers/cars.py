@@ -12,9 +12,7 @@ router = APIRouter(
     tags=["Cars Endpoints"]
 )
 
-# ========================
-# GET ALL CARS
-# ========================
+
 @router.get('/', response_model=CarsResponse)
 async def get_cars(db: Annotated[Session, Depends(get_db)]):
     cars = db.query(Car).all()
@@ -38,9 +36,7 @@ async def get_cars(db: Annotated[Session, Depends(get_db)]):
     return {"cars": data}
 
 
-# ========================
-# GET ONE CAR
-# ========================
+
 @router.get("/{car_id}", response_model=CarResponse)
 async def get_one_car(car_id: int, db: Annotated[Session, Depends(get_db)]):
     car = db.query(Car).filter(Car.id == car_id).first()
@@ -49,9 +45,7 @@ async def get_one_car(car_id: int, db: Annotated[Session, Depends(get_db)]):
     return car
 
 
-# ========================
-# ADD NEW CAR
-# ========================
+
 @router.post("/", response_model=CarResponse, status_code=status.HTTP_201_CREATED)
 async def add_car(car_data: CarCreate, db: Annotated[Session, Depends(get_db)]):
     # 1️⃣ Yangi Car obyekt yaratamiz
@@ -68,12 +62,12 @@ async def add_car(car_data: CarCreate, db: Annotated[Session, Depends(get_db)]):
         is_available=car_data.is_available
     )
 
-    # 2️⃣ DBga saqlaymiz
+   # DBga saqlaymiz
     db.add(new_car)
     db.commit()
     db.refresh(new_car)
 
-    # 3️⃣ Rasmlar bo‘lsa — qo‘shamiz
+   
     if car_data.images:
         for img in car_data.images:
             image = Image(url=img.url, car_id=new_car.id)
@@ -91,9 +85,7 @@ async def add_car(car_data: CarCreate, db: Annotated[Session, Depends(get_db)]):
     return new_car
 
 
-# ========================
-# UPDATE CAR
-# ========================
+
 @router.put("/{car_id}", response_model=CarResponse)
 async def update_car(car_id: int, car_data: CarUpdate, db: Annotated[Session, Depends(get_db)]):
     car = db.query(Car).filter(Car.id == car_id).first()
@@ -109,9 +101,6 @@ async def update_car(car_id: int, car_data: CarUpdate, db: Annotated[Session, De
     return car
 
 
-# ========================
-# DELETE CAR
-# ========================
 @router.delete("/{car_id}")
 async def delete_car(car_id: int, db: Annotated[Session, Depends(get_db)]):
     car = db.query(Car).filter(Car.id == car_id).first()
