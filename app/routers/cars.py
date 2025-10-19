@@ -85,7 +85,7 @@ async def add_car(car_data: CarCreate, db: Annotated[Session, Depends(get_db)]):
             equipment = Equipment(name=eq.name, car_id=new_car.id)
             db.add(equipment)
 
-    db.commit()
+    db.commit() 
     db.refresh(new_car)
 
     return new_car
@@ -121,7 +121,7 @@ async def delete_car(car_id: int, db: Annotated[Session, Depends(get_db)]):
     db.delete(car)
     db.commit()
 
-    return {"detail": "Car deleted successfully"}
+    return {"detail": "Car o'chirildi"}
 
 
 
@@ -136,39 +136,3 @@ async def delete_car(car_id: int, db: Annotated[Session, Depends(get_db)]):
 
 
 
-
-
-# from typing import Annotated
-
-# from fastapi.routing import APIRouter
-# from fastapi import Depends
-# from sqlalchemy.orm import Session
-
-# from app.schemas.car import CarResponse,CarsResponse,CarCreate,CarUpdate
-# from app.dependencies import get_db
-
-
-# router = APIRouter(
-#     prefix='/cars',
-#     tags=['Cars Endpoints']
-# )
-
-# @router.get('/',response_model=CarsResponse)
-# async def get_cars(car_id:int,db:Annotated[Session,Depends(get_db)]):
-#     pass
-
-# @router.get('/{car_id}',response_model=CarResponse)
-# async def get_one_cars(car_id:int,db:Annotated[Session,Depends(get_db)]):
-#     pass
-
-# @router.post('/',response_model=CarResponse)
-# async def add_car(car_data:CarCreate,db:Annotated[Session,Depends(get_db)]):
-#     pass
-
-# @router.put('/{car_id}',response_model=CarResponse)
-# async def update_cars(car_id:int,car_data:CarUpdate,db:Annotated[Session,Depends(get_db)]):
-#     pass
-
-# @router.delete('/{car_id}')
-# async def delete_cars(car_id:int, db:Annotated[Session,Depends(get_db)]):
-#     pass

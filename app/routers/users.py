@@ -18,7 +18,7 @@ router = APIRouter(
     tags=["User"]
 )
 
-@router.post("/",response_model=UserResponse)
+@router.post("/register",response_model=UserResponse)
 async def create_new_user(user:UserCreate,db:Session = Depends(get_db)):
    new_user =  create_user(db,user)
 

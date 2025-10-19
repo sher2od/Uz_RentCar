@@ -2,6 +2,9 @@ from enum import Enum
 from sqlalchemy import Column, Integer, String, Float, Boolean, ForeignKey, Enum as SQLEnum
 from sqlalchemy.orm import relationship
 from app.db.database import Base
+
+
+
 class EngineType(str, Enum):
     AUTOMATIC = "AUTOMATIC"
     MECHANIC = "MECHANIC"
@@ -40,6 +43,7 @@ class Car(Base):
     # relationships
     images = relationship("Image", back_populates="car", cascade="all, delete")
     equipments = relationship("Equipment", back_populates="car", cascade="all, delete")
+    orders = relationship("Order",back_populates="car",cascade="all,delete")
 
 
 class Image(Base):
