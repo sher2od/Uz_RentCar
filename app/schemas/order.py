@@ -1,5 +1,5 @@
-from datetime import date
 
+from datetime import date
 from pydantic import BaseModel
 
 from app.schemas.car import CarResponse
@@ -7,18 +7,20 @@ from app.schemas.user import UserResponse
 
 
 class OrderCreate(BaseModel):
-    car_id:int
-    order_date:date
+    car_id: int
+    order_date: date
+
 
 class OrderResponse(BaseModel):
-    id:int
-    car:CarResponse
-    user:UserResponse
-    order_date:date
-
+    id: int
+    car: CarResponse
+    user: UserResponse
+    order_date: date
+    status: str  
 
     class Config:
         from_attributes = True
+
 
 class OrdersResponse(BaseModel):
     orders: list[OrderResponse] | None = None
