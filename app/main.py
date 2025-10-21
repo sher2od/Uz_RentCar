@@ -1,3 +1,13 @@
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # .env faylni yuklaydi
+
+MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
+
+
+
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
