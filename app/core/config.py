@@ -1,23 +1,52 @@
-import os 
-from dotenv import load_dotenv
-from fastapi_mail import ConnectionConfig
 
 
-load_dotenv()
+# import os 
+# from dotenv import load_dotenv
+# from fastapi_mail import ConnectionConfig
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+
+# load_dotenv()
+
+# DATABASE_URL = os.getenv("DATABASE_URL")
 
 
-SECRET_KEY = os.getenv("SECRET_KEY")
-JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
+# SECRET_KEY = os.getenv("SECRET_KEY")
+# JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
 
   
 
+# mail_conf = ConnectionConfig(
+#     MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
+#     MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
+#     MAIL_FROM=os.getenv("MAIL_FROM"),
+#     MAIL_PORT=int(os.getenv("MAIL_PORT")),      
+#     MAIL_SERVER=os.getenv("MAIL_SERVER"), 
+#     MAIL_STARTTLS=True,
+#     MAIL_SSL_TLS=False  
+# )
+
+
+from dotenv import load_dotenv
+import os
+from fastapi_mail import ConnectionConfig
+
+# .env faylni yuklash
+load_dotenv()
+
+# Database va JWT sozlamalari
+DATABASE_URL = os.getenv("DATABASE_URL")
+SECRET_KEY = os.getenv("SECRET_KEY")
+JWT_ALGORITHM = os.getenv("JWT_ALGORITHM")
+
+# Mail portni int ga aylantirish, default 587
+MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
+
+# FastAPI Mail konfiguratsiyasi
 mail_conf = ConnectionConfig(
     MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
     MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
     MAIL_FROM=os.getenv("MAIL_FROM"),
-    MAIL_PORT=int(os.getenv("MAIL_PORT")),      
+    MAIL_PORT=MAIL_PORT,      
     MAIL_SERVER=os.getenv("MAIL_SERVER"), 
     MAIL_STARTTLS=True,
     MAIL_SSL_TLS=False  
